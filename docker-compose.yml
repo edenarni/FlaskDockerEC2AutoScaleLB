@@ -8,9 +8,6 @@ services:
       FLASK_APP: app.py
       FLASK_ENV: development
       DATABASE_URL: postgresql://eden:1234@postgres:5432/postgres_db
-      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
-      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
-      AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
     volumes:
       - .:/app
     ports:
