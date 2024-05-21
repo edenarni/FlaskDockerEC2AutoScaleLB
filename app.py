@@ -1,23 +1,27 @@
 from flask import Flask, request, render_template, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-
+from dotenv import load_dotenv
 import boto3
+import os
 
+# Load environment variables from .env file
+load_dotenv()
 
 app = Flask(__name__)
-# app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///site.db" # DB CONFIGURATION
-# todo: save the details of the container in variabels?
-# todo: change this to env vars
 
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://eden:1234@postgres-db-container:5432/postgres_db"
+# Use environment variables for database configuration
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 
 db = SQLAlchemy(app)
-migrate = Migrate(app, db) # DB CONFIGURATION
+migrate = Migrate(app, db)
 
-# connect to s3 bucket
-s3_client = boto3.client('s3')
-
+# Use environment variables for AWS credentials
+s3_client = boto3.client(
+    's3',
+    aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
+    aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY')
+)
 
 # DB CONFIGURATION
 class User(db.Model):
@@ -25,7 +29,6 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=False, nullable=False)
     email = db.Column(db.String(80), unique=True, nullable=False)
-
 
 @app.route('/')
 def index():
@@ -35,7 +38,6 @@ def index():
 def show_users():
     users = User.query.all()
     return " ".join([str((cur_user.id,cur_user.name)) for cur_user in users])
-
 
 @app.route("/add_user/", methods=['GET', 'POST'])
 def add_user():
@@ -48,14 +50,12 @@ def add_user():
         return redirect(url_for('show_image', user_name=user_name))
     return render_template('add_user.html')
 
-
 @app.route("/show_image/")
 def show_image():
     user_name = request.args.get('user_name', 'Guest')
-    # todo: change s3 bucket to private and use s3.getObjects instead
 
-    s3_bucket = "eden-project-images-bucket-1605"
-    image_key = "Screenshot 2024-05-16 at 11.08.54.png"
+    s3_bucket = os.getenv('S3_BUCKET_NAME')
+    image_key = os.getenv('S3_IMAGE_KEY')
 
     image_url = s3_client.generate_presigned_url(
         'get_object',
@@ -64,18 +64,7 @@ def show_image():
     )
     print(image_url)
 
-    # image_url = f"https://{s3_bucket}.s3.amazonaws.com/{image_key}"
-
-
     return render_template('show_image.html', image_url=image_url, user_name=user_name)
 
-
-
 if __name__ == "__main__":
-    # host - This parameter specifies the hostname or IP address on which the server will listen for incoming connections.
-    # port - This parameter specifies the port number on which the server will listen for incoming connections.
-    # You can access your Flask application by navigating to
-    # http://localhost:5555 in your web browser
-    # or by using the IP address of the host machine running the Flask application followed by port 5555.
-    # app.run(host='0.0.0.0', port=5555)
     app.run(host='0.0.0.0', port=5001, debug=True)
