@@ -1,6 +1,16 @@
-# Deploying Containerized Flask PostgreSQL App on AWS EC2
+# Deploy Flask App with PostgreSQL, Docker, AWS EC2 and AWS S3 Integration
+
+## Overview
+This is a simple Flask application that allows users to register and then redirects them to a page displaying a constant image from an private AWS S3 bucket. The application is containerized using Docker and can be deployed on an AWS EC2 instance. The project uses PostgreSQL as the database and utilizes environment variables for configuration.
 
 ## Setup Steps
+### Create an S3 Bucket:
+For the time being, the bucket will remain public, but we'll update its settings to private later on.
+![image](https://github.com/edenarni/FlaskDockerEC2AutoScaleLB/assets/123691333/30c2ab1f-abf8-4f30-ae75-f1ebcd8312c8)
+![image](https://github.com/edenarni/FlaskDockerEC2AutoScaleLB/assets/123691333/a8bb20f4-f1c7-4fac-9f59-cb168d3e701a)
+![image](https://github.com/edenarni/FlaskDockerEC2AutoScaleLB/assets/123691333/1157376e-be12-472c-9bdc-7e3dcead3956)
+
+
 
 ### 1. Launch an EC2 Instance
 
