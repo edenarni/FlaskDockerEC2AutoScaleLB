@@ -34,8 +34,7 @@ class User(db.Model):
 
 @app.route('/')
 def index():
-    # return "main page"
-    return render_template('register.html')
+    return redirect(url_for('add_user'))
 
 
 @app.route("/add_user/", methods=['GET', 'POST'])
