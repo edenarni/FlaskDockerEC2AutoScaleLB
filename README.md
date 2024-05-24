@@ -1,10 +1,10 @@
 # Flask App with PostgreSQL, Docker, AWS EC2 and AWS S3 Integration
 
-# Quick Start Guide: Running Dockerized Application with Docker Compose (localy)
+## Quick Start Guide: Running Dockerized Application with Docker Compose (localy)
 
 1. **Clone the Repository**: Clone the repository to your local machine using 
 ```
-git clone [<repository-url>](https://github.com/edenarni/FlaskDockerEC2AutoScaleLB.git)
+git clone https://github.com/edenarni/FlaskDockerEC2AutoScaleLB.git
 ```
 
 2. **Navigate to the Repository Directory**: Move into the cloned repository's directory with 
@@ -35,7 +35,7 @@ docker-compose down
 With these steps, you'll have your application running locally using Docker Compose, with the necessary environment variables configured and requirements installed for its operation.
 
 
-# Quick Deployment Guide: Deploying Your Dockerized Application to an EC2 Instance
+## Quick Deployment Guide: Deploying Your Dockerized Application to an EC2 Instance
 ## Overview
 This is a simple Flask application that allows users to register and then redirects them to a page displaying a constant image from an private AWS S3 bucket. The application is containerized using Docker and can be deployed on an AWS EC2 instance. The project uses PostgreSQL as the database and utilizes environment variables for configuration.
 
