@@ -23,6 +23,7 @@ s3_client = boto3.client(
     aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY')
 )
 
+
 # DB CONFIGURATION
 class User(db.Model):
     __tablename__ = 'user'
@@ -30,14 +31,12 @@ class User(db.Model):
     name = db.Column(db.String(50), unique=False, nullable=False)
     email = db.Column(db.String(80), unique=True, nullable=False)
 
+
 @app.route('/')
 def index():
-    return "main page"
+    # return "main page"
+    return render_template('register.html')
 
-@app.route('/show_users/')
-def show_users():
-    users = User.query.all()
-    return " ".join([str((cur_user.id,cur_user.name)) for cur_user in users])
 
 @app.route("/add_user/", methods=['GET', 'POST'])
 def add_user():
@@ -48,7 +47,8 @@ def add_user():
         db.session.add(new_user)
         db.session.commit()
         return redirect(url_for('show_image', user_name=user_name))
-    return render_template('add_user.html')
+    return render_template('register.html')
+
 
 @app.route("/show_image/")
 def show_image():
@@ -65,6 +65,7 @@ def show_image():
     print(image_url)
 
     return render_template('show_image.html', image_url=image_url, user_name=user_name)
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5001, debug=True)

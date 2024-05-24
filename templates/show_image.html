@@ -3,11 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
     <title>Show Image</title>
 </head>
 <body>
-    <h2>Welcome, {{ user_name }}!</h2>
-    <h3>Here is the image from S3:</h3>
-    <img src="{{ image_url }}" alt="S3 Image">
+    <div class='bold-line'></div>
+    <div class='container'>
+        <div class='window'>
+        <div class='overlay'></div>
+        <div class='content'>
+            <h2>Welcome, {{ user_name }}!</h2>
+            <h3>Now you can watch the image! </h3>
+            <img src="{{ image_url }}" alt="S3 Image">
+        </div>
+      </div>
+    </div>
 </body>
 </html>

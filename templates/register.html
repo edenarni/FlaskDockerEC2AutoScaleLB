@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class='bold-line'></div>
+    <div class='container'>
+      <div class='window'>
+        <div class='overlay'></div>
+        <div class='content'>
+          <div class='welcome'>Hello There!</div>
+          <div class='subtitle'>In order to see the image you first need to register here.</div>
+          <div class='input-fields'>
+            <form action="/add_user/" method="post">
+                <input type="text" placeholder='Enter your name' class='input-line full-width' id="name" name="name" required><br><br>
+                <input type="email" placeholder='Enter your email' class='input-line full-width' id="email" name="email" required><br><br>
+                <input type="submit" value="Register" class='ghost-round full-width'>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+</html>
